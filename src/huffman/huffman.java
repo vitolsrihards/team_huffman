@@ -4,68 +4,56 @@ import java.util.*;
 
 public class huffman {
 
+	public static void main(String[] args) throws Exception {
 
-	
-	public static Map<Character,Integer> fakeBinaryTree(String code64) {
-	
-	Map< Character,Integer> binaryTree = new HashMap<Character,Integer>(); 
-	
-	
-	System.out.print(code64 + "\n");
-	
-	for(int i =0 ; i < code64.length(); i++) {
-		char tempChar = code64.charAt(i);
-		int tempValue = 1;
-		if(binaryTree.containsKey(tempChar)) {
-			 tempValue = binaryTree.get(tempChar) +1;
-		}
-		binaryTree.put(tempChar, new Integer(tempValue)); 
-		
+		String msg = "";
+
+		Map<Character, Integer> sortedMap = huffmanTree.fakeBinaryTree(msg);
+		huffmanTree huffObj = new huffmanTree(sortedMap);
+
+		// encoding
+		String encodedString = huffObj.encode(msg);
+		System.out.println(encodedString);
+		// decoding
+		String decodedString = huffObj.decode(encodedString);
+		System.out.println(decodedString);
+
+//
+//		Scanner sc = new Scanner(System.in);
+//		int menuOption;
+//		boolean quit = false;
+//
+//		try {
+//
+//			System.out.println("Noradiet faila nosaukumu.");
+//
+//			String path = sc.nextLine();
+//
+//			do {
+//				System.out.print("Izvelne: \n\n");
+//				System.out.print("1. Saspiest failu");
+//				System.out.print("2. Dekompreset failu");
+//				System.out.print("0. Beigt darbu");
+//				menuOption = sc.nextInt();
+//
+//				switch (menuOption) {
+//				case 1:
+////					getFile(path);
+//					break;
+//				case 2:
+////					getFile(path);
+//					break;
+//				case 0:
+//					quit = true;
+//					break;
+//				default:
+//					System.out.println("Nepareiza izvelne.");
+//				}
+//			} while (!quit);
+//			sc.close();
+//			System.out.println("Paldies par programmas lietosanu!");
+//		} catch (Exception e) {
+//			System.out.println("Notikusi kluda.");
+//		}
 	}
-
-    List<Map.Entry<Character, Integer> > list = new LinkedList<Map.Entry<Character, Integer> >(binaryTree.entrySet()); 
-
-  
-    Collections.sort(list, new Comparator<Map.Entry<Character, Integer> >() { 
-        public int compare(Map.Entry<Character, Integer> o1,  
-                           Map.Entry<Character, Integer> o2) 
-        { 
-            return (o1.getValue()).compareTo(o2.getValue()); 
-        } 
-    }); 
-    
-    Collections.reverse(list);
-
-    HashMap<Character, Integer> sortedMap = new LinkedHashMap<Character, Integer>(); 
-   
-    for (Map.Entry<Character, Integer> element : list) { 
-    	sortedMap.put(element.getKey(), element.getValue()); 
-    } 
-   return sortedMap;   
-   
-	}
-
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		 Map<Character,Integer> hm =  fakeBinaryTree("QW55kcmmVqIGxveA==");
-		 huffmanTree huffpuff=new huffmanTree(hm);
-	   
-	        
-		// Returns Set view      
-					Set< Map.Entry< Character,Integer> > st = hm.entrySet();    
-					
-					for (Map.Entry< Character,Integer> me:st) 
-					{ 
-					    System.out.print(me.getKey()+":"); 
-					    System.out.println(me.getValue()); 
-					} 
-			
-			
-		
-	
-	}
-
 }
