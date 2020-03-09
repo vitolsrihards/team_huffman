@@ -1,5 +1,4 @@
 package huffman;
-
 import java.util.*;
 
 public class huffmanTree {
@@ -57,7 +56,7 @@ public class huffmanTree {
 		return null;
 	}
 
-	public String encode(String msg) {
+	public String encode(String msg) throws Exception {
 		// iegust map ar binary values
 		Map<Character, String> encodedMap = getEncodingMap();
 		StringBuilder sb = new StringBuilder();
@@ -66,8 +65,12 @@ public class huffmanTree {
 			char c = msg.charAt(i);
 			// iegust noteikta simbola binaro vertibu
 			String binaryValue = getMapKeyEncode(c, encodedMap);
-			// pievieno vertibu virknei
-			sb.append(binaryValue);
+			if (binaryValue != null && !binaryValue.isEmpty()) {
+				// pievieno vertibu virknei
+				sb.append(binaryValue);
+			} else {
+				throw new RuntimeException("Something went wrong.");
+			}
 		}
 		String encodedString = sb.toString();
 		return encodedString;
@@ -81,13 +84,12 @@ public class huffmanTree {
 			// 0 = pa kreisi koka
 			if (ch == '0') {
 				n = n.left;
-			// 1 = pa labi koka
+				// 1 = pa labi koka
 			} else {
 				n = n.right;
 			}
 			// lapa
-			if (n.left == null)
-			{
+			if (n.left == null) {
 				result = result + n.charValue;
 				n = root;
 			}
@@ -126,7 +128,11 @@ public class huffmanTree {
 			treeNodes.add(newNode);
 		}
 		// tiek saglabata koka sakne (pirmais elements nodes saraksta)
-		root = treeNodes.remove();
+		try {
+			root = treeNodes.remove();
+		} catch (NoSuchElementException e) {
+			System.out.println("Something went wrong.");
+		}
 
 	}
 
@@ -137,12 +143,10 @@ public class huffmanTree {
 		public Node right;
 
 		public void fillEncodingMap(Map<Character, String> map, String prefix) {
-			if (left == null)
-			{
+			if (left == null) {
 				// Ja aiziets maksimali pa kreisi koka tad pievieno simbolu ar ta bitu virkni
 				map.put(charValue, prefix);
-			} 
-			else {
+			} else {
 				// dodas dzilak koka pa kreisi
 				left.fillEncodingMap(map, prefix + "0");
 				// kad vairs nav iespejams koka doties pa kreisi dodas vienu limeni uz augsu un
