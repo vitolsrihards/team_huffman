@@ -5,7 +5,7 @@ public class huffmanTree {
 
 	private static Node root;
 
-	public static Map<Character, Integer> fakeBinaryTree(String code64) {
+	public static Map<Character, Integer> mapTree(String code64) {
 
 		Map<Character, Integer> binaryTree = new HashMap<Character, Integer>();
 
@@ -36,7 +36,7 @@ public class huffmanTree {
 		return sortedMap;
 	}
 
-	public static Map<Character, String> getEncodingMap() {
+	private static Map<Character, String> getEncodingMap() {
 		// Izveido jaunu HashMap izmantojot Map Interface
 		Map<Character, String> map = new HashMap<Character, String>();
 		// parbauda vai ir izvelets sakuma node no kura veikt mekleshanu
@@ -47,7 +47,7 @@ public class huffmanTree {
 		return map;
 	}
 
-	public static String getMapKeyEncode(char charToFind, Map<Character, String> map) {
+	private static String getMapKeyEncode(char charToFind, Map<Character, String> map) {
 		for (Map.Entry<Character, String> entry : map.entrySet()) {
 			if (entry.getKey() == charToFind) {
 				return entry.getValue();
@@ -56,7 +56,7 @@ public class huffmanTree {
 		return null;
 	}
 
-	public String encode(String msg) throws Exception {
+	public static String encode(String msg) {
 		// iegust map ar binary values
 		Map<Character, String> encodedMap = getEncodingMap();
 		StringBuilder sb = new StringBuilder();
@@ -76,7 +76,7 @@ public class huffmanTree {
 		return encodedString;
 	}
 
-	public String decode(String msg) {
+	public static String decode(String msg) {
 		String result = "";
 		Node n = root;
 		for (int i = 0; i < msg.length(); i++) {
@@ -97,7 +97,7 @@ public class huffmanTree {
 		return result;
 	}
 
-	public huffmanTree(Map<Character, Integer> sortedMap) {
+	public static void createTree(Map<Character, Integer> sortedMap) {
 
 		// Saraksta nodes izveide
 		LinkedList<Node> treeNodes = new LinkedList<Node>();
@@ -136,7 +136,7 @@ public class huffmanTree {
 
 	}
 
-	class Node {
+	static class Node {
 		public char charValue;
 		public int freqCount;
 		public Node left;
